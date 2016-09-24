@@ -13,7 +13,7 @@ PCに接続したAndroid端末のネットワーク情報をデスクトップ�
 ### 使い方
 Android端末をPCに接続しておく。
 ```
-$ git clone https://git.corp.yahoo.co.jp/shotakeu/AndroidNetworkInfoGetter.git
+$ git clone https://github.com/shotakeu/AndroidNetworkInfoGetter.git
 $ cd AndroidNetworkInfoGetter/
 $ node app.js 
 Node.js is listening to PORT:3000
