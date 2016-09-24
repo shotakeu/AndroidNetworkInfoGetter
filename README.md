@@ -21,4 +21,4 @@ Node.js is listening to PORT:3000
 その後、[http://localhost:3000](http://localhost:3000/)にブラウザからアクセス
 
 ### 現状のUI
-![UI](http://mym.corp.yahoo.co.jp/paster/97afd7701f88ca6a30d0.png "UI")
+![UI](http://takelab.sub.jp/wp-content/uploads/97afd7701f88ca6a30d0.png)
