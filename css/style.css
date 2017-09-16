@@ -1,0 +1,55 @@
+body {
+color:#333;
+}
+.content {
+    background-color: #2F2F2F;
+    color: #FFFFFF;
+    padding: 4px;
+    margin-bottom: 1em;
+}
+/* --- 見出しエリア --- */
+.heading h1, .heading h2, .heading  h3 {
+width: 100%; /* 見出しエリアの幅 */
+margin-bottom: 1em;
+padding: 4px 0; /* 見出しエリアのパディング（上下、左右） */
+border-bottom: 1px #c0c0c0 solid; /* 見出しエリアの下境界線 */
+background-color: #2F2F2F; 
+}
+
+ul {
+margin:0;
+padding:0;
+list-style:none;
+}
+
+li a {
+display: block;
+border: 1px solid #9F99A3;
+background-color: #eee;
+padding: 3px;
+text-decoration: none;
+color: #333;
+margin: 2px 0px;
+text-align: left;
+font-size: 13px;
+}
+
+li a:hover {
+border: 1px solid #8593A9;
+background-color: #9EB7DD;
+color: #fff
+}
+
+.deviceInfo p {
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    width: 100%;
+    border: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+}

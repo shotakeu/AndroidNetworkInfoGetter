@@ -1,22 +1,43 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>Connected Device Info.</title>
-    <!-- Bootstrap -->
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/style.css" type="text/css" >
 </head>
 <body>
+<div class="content">
+<div id="connectdeviceinfo" class="heading">
     <h1>Your Connected Device Info</h1>
-    <p>Device ID: <%= device %></p>
-    <p>Device Model: <%= devicemodel %></p>
-    <p>Android Version: <%= androidversion %></p>
-    <p>Wifi Status: <%= wifistat %></p>
-    <p>IPAddress: <%= ipaddress %></p>
-    <p>Gateway: <%= gateway %></p>
-    <p>DNS1: <%= dns1 %></p>
-    <p>DNS2: <%= dns2 %></p>
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <div class="deviceInfo">
+        <p>Device ID: <%= device %></p>
+        <p>Device Model: <%= devicemodel %></p>
+        <p>Android Version: <%= androidversion %></p>
+        <p>Wifi Status: <%= wifistat %></p>
+        <p>IPAddress: <%= ipaddress %></p>
+        <p>Gateway: <%= gateway %></p>
+        <p>DNS1: <%= dns1 %></p>
+        <p>DNS2: <%= dns2 %></p>
+    </div>
+</div>
+<div id="connectdevicelist" class="heading">
+    <h2>Attached device list</h2>
+    <ul>
+    <% var connected = connecteddevice %>
+    <% connected.forEach(function(value , key) { %>
+        <li><a href="/?device=<%= key %>"><%= value %></a></li>
+    <% }); %>
+    <ul>
+</div>
+<div id="userinput" class="heading">
+    <h2>Push crt file to connected device.</h2>
+    <% connected.forEach(function(value, key) { %>
+    <form action="./" method="POST">
+        <input type="text" name="device" value="<%= key %>"><%= value %></input>
+        <input type="submit" value="push crt file!" />
+    </form>
+    <% }); %>
+</div>
+</div>
 </body>
 </html>
