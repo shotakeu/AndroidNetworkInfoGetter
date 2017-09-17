@@ -24,7 +24,7 @@ Node.js is listening to PORT:3000
 その後、[http://localhost:3000](http://localhost:3000/)にブラウザからアクセス
 
 ### 現状のUI
-![UI](https://mym.corp.yahoo.co.jp/paster/b8e3cb96e8be91bdd40d.png "UI")
+![UI](http://takelab.sub.jp/wp-content/uploads/スクリーンショット-2017-09-17-10.32.29.png "UI")
 
 ### 起動時に立ち上げる
 #### 起動させる
