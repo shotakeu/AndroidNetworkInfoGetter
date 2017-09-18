@@ -26,6 +26,10 @@ Node.js is listening to PORT:3000
 ### 現状のUI
 ![UI](http://takelab.sub.jp/wp-content/uploads/スクリーンショット-2017-09-17-10.32.29.png "UI")
 
+### 注意点
+* 事前にADBコマンドのインストールが必須、こちら参照[http://butsuyoku-gadget.com/android_sdk_install/](http://butsuyoku-gadget.com/android_sdk_install/)
+* Android端末やエミュレータが接続されていない場合の処理はまだ書いていませんのでエラー画面が出ます。いつか気が向いたら直します。
+
 ### 起動時に立ち上げる
 #### 起動させる
 ```
