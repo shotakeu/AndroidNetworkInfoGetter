@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Connected Device Info.</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" >
 </head>
@@ -30,7 +31,7 @@
     <ul>
 </div>
 <div id="userinput" class="heading">
-    <h2>Push crt file to connected device.</h2>
+    <h2>Push crt file to connected device.(Beta function)</h2>
     <% connected.forEach(function(value, key) { %>
     <form action="./" method="POST">
         <input type="text" name="device" value="<%= key %>"><%= value %></input>
