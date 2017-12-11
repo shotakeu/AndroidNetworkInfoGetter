@@ -2,12 +2,36 @@
 var express = require("express");
 var app = express();
 var execSync = require("child_process").execSync;
+/** File System */
+const fs = require('fs');
 
-// 複数デバイス対応用
+/* for multi devices. */
 var i = 0;
 
-// 2, listen()メソッドを実行して3000番ポートで待受。
-var server = app.listen(3000, function() {
+/* port number */
+var portNum = 3000;
+
+/* result of pushing crt file object */
+var pushCrtFileResult = {
+  execresult1: 'Faild.',
+  execresult2: 'Faild.'
+}
+
+/* Result of adb command */
+var adbResultObj = {
+                    ipaddress: '',
+                    device: '',
+                    gateway: '',
+                    dns1: '',
+                    dns2: '',
+                    wifistat: '',
+                    devicemodel: '',
+                    androidversion: '',
+                    connecteddevice: []
+                };
+
+// 2, listen()メソッドを実行して指定のポートで待受。
+var server = app.listen(portNum, function() {
     console.log("Node.js is listening to PORT:" + server.address().port);
 });
 
@@ -25,7 +49,7 @@ app.use('/img',express.static('img'));
 // "/"へのGETリクエストでindex.ejsを表示する。拡張子(.ejs)は省略されているらしい
 app.get("/", function(req, res, next) {
     var i = 0;
-    if (req.query.device) { 
+    if (req.query.device) {
         i = req.query.device;
     }
     var data = getAdbResult(i);
@@ -41,25 +65,27 @@ app.post("/", function(req, res) {
     res.render("result", pushCrtFileToDevice(i));
 });
 
-
 /*
 * get network status via adb.
 */
 function getAdbResult(i) {
     var deviceListArray = getDevices();
-    var targetDevice = deviceListArray[i];
-    var resultObj = {
-                        ipaddress: execSync("adb -s " + targetDevice + " shell ip route | cut -d ' ' -f 12").toString(),
-                        device: execSync("adb -s " + targetDevice + " get-serialno").toString(),
-                        gateway: execSync("adb -s " + targetDevice + " shell cat /proc/net/arp | sed -n '2,2p' | cut -d' ' -f 1").toString(),
-                        dns1: execSync("adb -s " + targetDevice + " shell  getprop net.dns1").toString(),
-                        dns2: execSync("adb -s " + targetDevice +" shell getprop net.dns2").toString(),
-                        wifistat: execSync("adb -s " + targetDevice + " shell dumpsys netstats | grep -E 'iface' | sed -n '1,1p'").toString(),
-                        devicemodel: execSync("adb -s " + targetDevice + " shell getprop ro.product.model").toString(),
-                        androidversion: execSync("adb -s " + targetDevice + " shell getprop ro.build.version.release").toString(),
-                        connecteddevice: deviceListArray
-                    };
-    return resultObj;
+    // execute adb command if more than 1 devices connected.
+    if (deviceListArray.length > 0) {
+      var targetDevice = deviceListArray[i];
+      adbResultObj = {
+                          ipaddress: execSync("adb -s " + targetDevice + " shell ip route | cut -d ' ' -f 12").toString(),
+                          device: execSync("adb -s " + targetDevice + " get-serialno").toString(),
+                          gateway: execSync("adb -s " + targetDevice + " shell cat /proc/net/arp | sed -n '2,2p' | cut -d' ' -f 1").toString(),
+                          dns1: execSync("adb -s " + targetDevice + " shell  getprop net.dns1").toString(),
+                          dns2: execSync("adb -s " + targetDevice +" shell getprop net.dns2").toString(),
+                          wifistat: execSync("adb -s " + targetDevice + " shell dumpsys netstats | grep -E 'iface' | sed -n '1,1p'").toString(),
+                          devicemodel: execSync("adb -s " + targetDevice + " shell getprop ro.product.model").toString(),
+                          androidversion: execSync("adb -s " + targetDevice + " shell getprop ro.build.version.release").toString(),
+                          connecteddevice: deviceListArray
+                      };
+    }
+    return adbResultObj;
 }
 
 /**
@@ -79,14 +105,29 @@ function getDevices() {
 }
 
 /*
-* push crt file to connected device.
+* push crt file to connected and selected device.
 */
 function pushCrtFileToDevice(i) {
     var deviceList = getDevices();
     var targetDevice = deviceList[i];
-    var resultObj = {
-                        execresult1: execSync("adb -s " + targetDevice + " push ypki_root_ca.cer /sdcard/").toString(),
-                        execresult2: execSync("adb -s " + targetDevice + " push ypki_root_cacert_v2.crt /sdcard/").toString()
-                    };
-    return resultObj;
+    if (isExistFile('example.cer')) {
+      pushCrtFileResult = {
+          execresult1: execSync("adb -s " + targetDevice + " push example.cer /sdcard/").toString(),
+          execresult2: execSync("adb -s " + targetDevice + " push example.crt /sdcard/").toString()
+      };
+      return pushCrtFileResult;
+    }
+    return pushCrtFileResult;
+}
+
+/*
+* file appearence check.
+*/
+function isExistFile(file) {
+  try {
+    fs.statSync(file);
+    return true;
+  } catch(err) {
+    if(err.code === 'ENOENT') return false;
+  }
 }
