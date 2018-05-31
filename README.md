@@ -25,7 +25,8 @@ Android端末をPCに接続しておく。
 ```
 $ git clone https://github.com/shotakeu/AndroidNetworkInfoGetter.git
 $ cd AndroidNetworkInfoGetter/
-$ node app.js
+$ node app.js 
+
 Node.js is listening to PORT:3000
 ```
 
@@ -41,6 +42,14 @@ Node.js is listening to PORT:3000
 
 ------------------------------
 ## 利用方法
+### 通常起動
+
+```
+$ npm start
+```
+
+(事前にnpm installが必要)
+
 
 ### 起動時に立ち上げる
 
